@@ -21,6 +21,7 @@
                 $numaAle= rand(1, TOPE); 
                 $intentos = 0; 
             }
+            /* http://localhost/php */
         
     ?>
     <h1>Adivinaaaaaaaa</h1>
