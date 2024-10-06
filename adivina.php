@@ -8,25 +8,34 @@
 </head>
 <body>
 <?php
+
         define('TOPE', 50); 
+        if (!isset($_POST['usuario'])) {
+            // generamos el número aleatorio solo la primera vez
+            $miNum = rand(2, TOPE);
+            $intentos = 0; // inicializamos los intentos
+            $mensaje = "Adivina un número entre 1 y " . TOPE . ".";
+        }else{
             $numaAle = intval($_POST['numaAle']);
             $intentos = intval($_POST['intentos']) + 1; 
             $usuario = intval($_POST['usuario']);
             if ($usuario > $numaAle) {
-                $mensaje = "el numero es menor que $adivinado. Llevas $intentos intentos.";
-            } elseif ($usuario < $numaAle) {
-                $mensaje = "el numero es mayor que $adivinado. Llevas $intentos intentos.";
+                $mensaje = "el numero es menor que $usuario,llevas $intentos intentos.";
+            } 
+            if ($usuario < $numaAle) {
+                $mensaje = "el numero es mayor que $usuario, llevas $intentos intentos.";
             } else {
                 $mensaje = "oleeeee has adivinado el nnmero en $intentos intentos.";
-                $numaAle= rand(1, TOPE); 
+                $numaAle= rand(2, TOPE); 
                 $intentos = 0; 
             }
-            /* http://localhost/php */
+
+        }
         
     ?>
     <h1>Adivinaaaaaaaa</h1>
     <p><?php echo $mensaje; ?></p>
-    <form action="formulario.php" method="post">
+    <form action="" method="post">
         <label for="numero">Introduce el número:</label>
         <input type="usuario" id="usuario" name="usuario" required><br>
         <br>
