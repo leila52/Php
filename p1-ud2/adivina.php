@@ -12,7 +12,7 @@
         define('TOPE', 50); 
         if (!isset($_POST['usuario'])) {
             // generamos el número aleatorio solo la primera vez
-            $miNum = rand(2, TOPE);
+            $miNum = rand(1, TOPE);
             $intentos = 0; // inicializamos los intentos
             $mensaje = "Adivina un número entre 1 y " . TOPE . ".";
         }else{
@@ -22,14 +22,13 @@
             if ($usuario > $numaAle) {
                 $mensaje = "el numero es menor que $usuario,llevas $intentos intentos.";
             } 
-            if ($usuario < $numaAle) {
+            else if ($usuario < $numaAle) {
                 $mensaje = "el numero es mayor que $usuario, llevas $intentos intentos.";
             } else {
                 $mensaje = "oleeeee has adivinado el numero en $intentos intentos.";
-                $numaAle= rand(2, TOPE); 
+                $numaAle= rand(1, TOPE); 
                 $intentos = 0; 
             }
-
         }
         
     ?>

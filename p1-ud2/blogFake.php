@@ -37,6 +37,5 @@
 </body>
 </html>
 
-Creo que has hecho un buen trabjo,salvo que en el 5 opcional esta poco documentado.He de destacar que tu trabajo esta muy bien documentado y se nota que has comprendido los servicios de Apache y php
 
 

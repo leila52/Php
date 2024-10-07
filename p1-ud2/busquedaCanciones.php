@@ -7,9 +7,7 @@
     
 </head>
 <body>
-
 <h1>Busqueda de canciones</h1>
-
     <?php
     $mostrarFormulario=true;
     if(isset($_POST['buscar'])){
@@ -31,12 +29,8 @@
             }
                 echo "<p> Genero: " .  $canciones ."</p>";
                 $mostrarFormulario=false;
-            }else{
-                echo " <p>introduzca algo porfavor</p>";
             }
         }
-
-
     ?>
     <form action="" method="post">
         <?php if ($mostrarFormulario) { ?>
