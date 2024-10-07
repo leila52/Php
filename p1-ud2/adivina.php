@@ -25,7 +25,7 @@
             if ($usuario < $numaAle) {
                 $mensaje = "el numero es mayor que $usuario, llevas $intentos intentos.";
             } else {
-                $mensaje = "oleeeee has adivinado el nnmero en $intentos intentos.";
+                $mensaje = "oleeeee has adivinado el numero en $intentos intentos.";
                 $numaAle= rand(2, TOPE); 
                 $intentos = 0; 
             }

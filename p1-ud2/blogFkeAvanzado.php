@@ -18,7 +18,7 @@
         $nuevoMensaje =($_POST['mensaje']);
         //acumulamos el nuevo mensaje
         if(!empty($nuevoMensaje)){
-            $mensajes=$_POST['mensajeAcum'] . $nuevoMensaje. "\n";
+            $mensajes = $_POST['mensajeAcum'] . "<p class='mensaje'>" . $nuevoMensaje . "</p>"; 
         }else{
             $mensajes =$_POST['mensajeAcum'];
         }
@@ -28,11 +28,14 @@
     ?>
 
     <form method="post">
-        <label for="mensaje">Nuevo mensaje:</label>
+        <label for="mensaje">mensaje:</label>
         <input type="text" id="mensaje" name="mensaje" required>
         <input type="submit" name="enviar" value="Enviar">
 
-        <textarea name="mensajeAcum"rows="10" cols="50"><?php echo($mensajes);?></textarea>
+        <input type="hidden" name="mensajeAcum"value="<?php echo($mensajes);?>">
     </form>
+    <div id="mensajes">
+        <?php echo $mensajes; ?>
+    </div>
 </body>
 </html>

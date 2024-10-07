@@ -27,8 +27,6 @@
                 $mostrarFormulario=false;
             }
 
-            
-
         }else{
             // se muestra que no lo ha introducido
             echo "<p> debe introducir una cantidad</p>";
@@ -36,8 +34,7 @@
             $mostrarFormulario=false;
         }
     }
-
-
+    
     ?>
     <form method="post" action="">
         <?php if ($mostrarFormulario) { ?>
@@ -48,7 +45,7 @@
             <select id="moneda" name="moneda" required>
                 <option value="">Seleccione una moneda</option>
                 <option value="Dolares">Dolares USA</option>
-                <option value="Libras">Libras</option>
+                <option value="Libras">Libras Esterlinas</option>
                 <option value="Yenes">Yenes Japonesas</option>
                 <option value="Pesetas">Pesetas</option>
             </select>
