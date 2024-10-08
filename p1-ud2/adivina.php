@@ -36,7 +36,7 @@
     <p><?php echo $mensaje; ?></p>
     <form action="" method="post">
         <label for="numero">Introduce el número:</label>
-        <input type="usuario" id="usuario" name="usuario" required><br>
+        <input type="usuario" id="usuario" name="usuario" ><br>
         <br>
         <input type="hidden" name="numaAle" value="<?php echo $numaAle; ?>">
         <input type="hidden" name="intentos" value="<?php echo $intentos; ?>">
