@@ -7,13 +7,10 @@
 </head>
 <body>
     <h1>Convertir euros a otras monedas</h1>
-
     <?php
     // array asociativo
     $valoresCon=['Dolares' => 1.325,'Libras' => 0.927,'Yenes' => 118.232,'Pesetas' => 166.386];
-
     $mostrarFormulario=true;
-
     if(isset($_POST['convertir'])){
         if(!empty($_POST['euros']) && !empty($_POST['moneda'])){
             $euros=$_POST['euros'];
@@ -26,7 +23,6 @@
                 echo '<a href="conversorMonedas.php"> volver</a>';
                 $mostrarFormulario=false;
             }
-
         }else{
             // se muestra que no lo ha introducido
             echo "<p> debe introducir una cantidad</p>";
@@ -34,7 +30,6 @@
             $mostrarFormulario=false;
         }
     }
-    
     ?>
     <form method="post" action="">
         <?php if ($mostrarFormulario) { ?>

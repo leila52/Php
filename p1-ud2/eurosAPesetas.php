@@ -23,7 +23,6 @@
                 echo '<a href="eurosAPesetas.php"> volver</a>';
             }
             $mostrarFormulario=false;
-            
         }else{
             // se muestra que no lo ha introducido
             echo "<p> debe introducir una cantidad</p>";
@@ -31,23 +30,15 @@
             $mostrarFormulario=false;
         }
     }
-    
     ?>
-    
     <form method="post" action="">
     <?php
-
         if($mostrarFormulario){
-
-        
     ?>
     <label for="euros">Cantidad en euros:</label>
     <input type="number" id="euros" name="euros">
     <input type="submit" name="convertir" value="Convertir">
     <?php }?>
-        
-            
-    
     </form>
 </body>
 </html>
