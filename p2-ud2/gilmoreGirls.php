@@ -4,10 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gilmore Girls</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start; 
+            padding: 20px;
+        }
+        form {
+            flex: 1;
+            margin-right: 20px;
+        }
+        img {
+            
+            max-width: 500px; 
+            height: 500px; 
+        }
+    </style>
 </head>
 <body>
     
     <?php
+        
         $errores = [];
         $nombre = "";
         $cafe = "";
@@ -15,6 +33,12 @@
         $preferencia = "";
         $personajes = [];
         $temporadas = [];
+        $ciudad = "";
+        $comida = "";
+        $cita = "";
+        $episodio = "";
+        $calificacion = "";
+        $comentarios = "";
         $mostrarFormulario = true;
 
         //primero verificamos al enviar el formulario
@@ -72,12 +96,68 @@
             if (isset($_POST["temporadas"])) {
                 $temporadas = $_POST["temporadas"];
                 if (empty($temporadas)) {
-                    $errores['temporadas'] = "Selecciona al menos una temporada.";
+                    $errores['temporadas'] = "Selecciona al menos una temporada";
                 }
             } else {
-                $errores['temporadas'] = "Selecciona al menos una temporada.";
+                $errores['temporadas'] = "Selecciona al menos una temporada";
             }
-            function muestraResumen($nombre, $primeravez, $cafe, $preferencia, $personajes, $temporadas) {
+
+            //validar de ciudad favorita 
+            if (isset($_POST["ciudad"])) {
+                $ciudad = $_POST["ciudad"];
+                if (empty($ciudad)) {
+                    $errores['ciudad'] = "Selecciona una ciudad favorita porfavorrrrr";
+                }
+            } else {
+                $errores['ciudad'] = "Selecciona una ciudad favorita porfavorrrrr";
+            }
+
+            //validar comida favorita
+            if (isset($_POST["comida"])) {
+                $comida = $_POST["comida"];
+                if (empty($comida)) {
+                    $errores['comida'] = "selecciona la comida favorita es obligatoria, no lo olvides";
+                }
+            }
+
+            //validar la cita favorita
+            if (isset($_POST["cita"])) {
+                $cita = $_POST["cita"];
+                if (empty($cita)) {
+                    $errores['cita'] = "introduce la cita favorita plss,sobre todo la de luke y lorelai.";
+                }
+            }
+
+            //validar episodio favorito
+            if (isset($_POST["episodio"])) {
+                $episodio = $_POST["episodio"];
+                if (empty($episodio)) {
+                    $errores['episodio'] = "introduce el episodio favorito porfiiiii";
+                }
+            }
+
+            //validar calificacion
+            if (isset($_POST["calificacion"])) {
+                $calificacion = $_POST["calificacion"];
+                if (empty($calificacion)) {
+                    $errores['calificacion'] = "introduzca la calificación ya que es obligatoria.";
+                }
+            }
+
+            //validar comentarios
+            if (isset($_POST["comentarios"])) {
+                $comentarios = $_POST["comentarios"];
+                if (empty($comentarios)) {
+                    $errores['comentarios'] = "escribe un comentario porfavor ya que es la mejor serie de los 2000";
+                }elseif (strlen($comentarios) < 10) {
+                    $errores['comentarios'] = "debes de escribir mas de 10 caracteres porfavor";
+                }
+            } else {
+                $errores['comentarios'] = "escribe un comentario porfavor ya que es la mejor serie de los 2000";
+            }
+        
+
+            function muestraResumen($nombre, $primeravez, $cafe, $preferencia, $personajes, $temporadas, $ciudad, $comida, $cita, $episodio, $calificacion, $comentarios) {
                 echo "<h1>Resumen de tus datos sobre Gilmore Girls</h1>";
                 echo "<p>Nombre de tu personaje favorito: " . $nombre . "</p>";
                 echo "<p>Cuándo la viste por primera vez: " . $primeravez . "</p>";
@@ -85,8 +165,13 @@
                 echo "<p>Prefieres a: " . $preferencia . "</p>";
                 echo "<p>Personajes favoritos: " . implode(", ", $personajes) . "</p>";
                 echo "<p>Temporadas favoritas: " . implode(", ", $temporadas) . "</p>";
-                echo '<form action="gilmoreGirls.php" method="post">';
-                echo'<input type="submit" value="Enviarr">';
+                echo "<p>Ciudad favorita de la serie: " . $ciudad . "</p>";
+                echo "<p>Comida favorita que sale en la serie: " . $comida . "</p>";
+                echo "<p>Cita favorita de gilmore girls: " . $cita . "</p>";
+                echo "<p>Episodio favorito de gilmore girls: " . $episodio . "</p>";
+                echo "<p>Calificación sobre la serie: " . $calificacion . "</p>";
+                echo "<p>Comentarios: " . $comentarios . "</p>";
+                echo '<form action="" method="post">';
                 echo '<input type="submit" value="Volver al formulario">';
                 echo '</form>';
                
@@ -94,7 +179,7 @@
             //si no hay errores, mostrar resumen
             if (empty($errores)) {
                 $mostrarFormulario = false;
-                muestraResumen($nombre, $primeravez, $cafe, $preferencia, $personajes, $temporadas);
+                muestraResumen($nombre, $primeravez, $cafe, $preferencia, $personajes, $temporadas, $ciudad, $comida, $cita, $episodio, $calificacion, $comentarios);
                 
                 
             }
@@ -103,8 +188,17 @@
 
     <?php if ($mostrarFormulario) { ?>
     <form action="" method="post">
+        
+        <?php 
+        //mostrar información sobre el servidor y cabeceras
+        echo " <h2>Informacion del servidor:</h2>";
+        echo"ip remota: ". $_SERVER['REMOTE_ADDR'] . "<br>";
+        $cabeceras = apache_request_headers();
+        echo "Cabeceras:". print_r($cabeceras, true);
+        ?>
+        <br><br>
         <h1>Formulario sobre Gilmore Girls</h1>
-
+        <br><br>
         <!-- Nombre -->
         <label for="nombre">Nombre de tu personaje favorito</label>
         <input type="text" id="nombre" name="nombre" value="<?php echo $nombre; ?>">
@@ -121,7 +215,7 @@
         <?php } ?>
         <br><br>
 
-        <!-- Café -->
+        <!-- Cafe -->
         <label for="cafe">¿Te encanta el café? (responde con "si" o "no")</label>
         <input type="text" id="cafe" name="cafe" value="<?php echo $cafe; ?>">
         <?php if (isset($errores['cafe'])) { ?>
@@ -163,6 +257,67 @@
         </select>
         <?php if (isset($errores['temporadas'])) { ?>
             <div style="color: red;"><?php echo $errores['temporadas']; ?></div>
+        <?php } ?>
+        <br><br>
+
+
+        <!-- Ciudad favorita -->
+        <label for="ciudad">¿Cuál es tu ciudad favorita de la serie?</label>
+        <select id="ciudad" name="ciudad">
+            <option value="Stars Hollow" <?php echo ($ciudad == "Stars Hollow") ? "selected" : ""; ?>>Stars Hollow</option>
+            <option value="Hartford" <?php echo ($ciudad == "Hartford") ? "selected" : ""; ?>>Hartford</option>
+            <option value="New York" <?php echo ($ciudad == "New York") ? "selected" : ""; ?>>Nueva York</option>
+            <option value="Otro" <?php echo ($ciudad == "Otro") ? "selected" : ""; ?>>Otro</option>
+        </select>
+        <?php if (isset($errores['ciudad'])) { ?>
+            <div style="color: red;"><?php echo $errores['ciudad']; ?></div>
+        <?php } ?>
+        <br><br>
+
+        <!-- Comida favorita -->
+        <label for="comida">¿Cuál es tu comida favorita mencionada en la serie?</label>
+        <input type="text" id="comida" name="comida" value="<?php echo $comida; ?>">
+        <?php if (isset($errores['comida'])) { ?>
+            <div style="color: red;"><?php echo $errores['comida']; ?></div>
+        <?php } ?>
+        <br><br>
+
+        <!-- Cita favorita -->
+        <label for="cita">¿Cuál es tu cita favorita de la serie?</label>
+        <input type="text" id="cita" name="cita" value="<?php echo $cita; ?>">
+        <?php if (isset($errores['cita'])) { ?>
+            <div style="color: red;"><?php echo $errores['cita']; ?></div>
+        <?php } ?>
+        <br><br>
+
+        <!-- Episodio favorito -->
+        <label for="episodio">¿Cuál es tu episodio favorito?</label>
+        <input type="text" id="episodio" name="episodio" value="<?php echo $episodio; ?>">
+        <?php if (isset($errores['episodio'])) { ?>
+            <div style="color: red;"><?php echo $errores['episodio']; ?></div>
+        <?php } ?>
+        <br><br>
+
+        <!-- Calificación -->
+        <label for="calificacion">Califica la serie del 1 al 5:</label>
+        <select id="calificacion" name="calificacion">
+            <option value="1" <?php if ($calificacion == "1") echo "selected"; ?>>1</option>
+            <option value="2" <?php if ($calificacion == "2") echo "selected"; ?>>2</option>
+            <option value="3" <?php if ($calificacion == "3") echo "selected"; ?>>3</option>
+            <option value="4" <?php if ($calificacion == "4") echo "selected"; ?>>4</option>
+            <option value="5" <?php if ($calificacion == "5") echo "selected"; ?>>5</option>
+        </select>
+        <?php if (isset($errores['calificacion'])) { ?>
+            <div style="color: red;"><?php echo $errores['calificacion']; ?></div>
+        <?php } ?>
+
+        <br><br>
+
+        <!-- Comentarios -->
+        <label for="comentarios">Comentarios adicionales:</label><br>
+        <textarea id="comentarios" name="comentarios" rows="3" cols="50"><?php echo $comentarios; ?></textarea>
+        <?php if (isset($errores['comentarios'])) { ?>
+            <div style="color: red;"><?php echo $errores['comentarios']; ?></div>
         <?php } ?>
         <br><br>
 
