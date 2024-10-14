@@ -12,7 +12,7 @@
         define('TOPE', 50); 
         if (!isset($_POST['usuario'])) {
             // generamos el número aleatorio solo la primera vez
-            $miNum = rand(1, TOPE);
+            $numaAle = rand(1, TOPE);
             $intentos = 0; // inicializamos los intentos
             $mensaje = "Adivina un número entre 1 y " . TOPE . ".";
         }else{
