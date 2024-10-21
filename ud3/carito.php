@@ -14,6 +14,7 @@
     define('RUTA_FICHERO',"stock.data");
     
     if(file_exists(RUTA_FICHERO)){
+        //crer archivo data
         $stock =unserialize(data:file_get_contents(filename:RUTA_FICHERO));
     }else{
         $stock = [
