@@ -20,12 +20,6 @@
         "paleta_sombras_huda_beauty" => 65,
         "mascara_de_pestanas_lancome" => 29,
         "labial_matte_mac" => 19.50,
-        "iluminador_fenty_beauty" => 38,
-        "corrector_nars" => 30,
-        "brocha_para_base_real_techniques" => 10,
-        "spray_fijador_urban_decay" => 33,
-        "polvos_traslucidos_laura_mercier" => 39,
-        "crema_hidratante_tatcha" => 68,
         "exfoliante_facial_clinique" => 29.50,
         "serum_vitamina_c_the_ordinary" => 7.99,
         "labial_gloss_fenty_beauty" => 19,
@@ -48,12 +42,6 @@
             "paleta_sombras_huda_beauty" => 8,
             "mascara_de_pestanas_lancome" => 15,
             "labial_matte_mac" => 12,
-            "iluminador_fenty_beauty" => 6,
-            "corrector_nars" => 9,
-            "brocha_para_base_real_techniques" => 25,
-            "spray_fijador_urban_decay" => 18,
-            "polvos_traslucidos_laura_mercier" => 7,
-            "crema_hidratante_tatcha" => 4,
             "exfoliante_facial_clinique" => 10,
             "serum_vitamina_c_the_ordinary" => 30,
             "labial_gloss_fenty_beauty" => 14,
@@ -74,7 +62,7 @@
 
                 if (!empty($_POST["$producto"])) {
                     $cantidad = intval($_POST[$producto]);
-                    
+                    echo "<p>Has añadido $cantidad unidad(es) de $producto a tu carrito.</p>";
                     //echo "traza: $cantidad";
                     if ($cantidad > 0) {
                         // Comprobar stock
@@ -88,7 +76,7 @@
                             }
                             $_SESSION['compras'][$producto] += $cantidad;
 
-                            echo "<p>Has añadido $cantidad unidad(es) de $producto a tu carrito.</p>";
+                            
                             
                         }
                     }
@@ -112,20 +100,24 @@
                     $totalCompra += $totalPrecio;
                 }
                 echo "<li><strong>Total de la compra: $totalCompra €</strong></li>";
+
             } else {
                 echo "<li>No has añadido ningún producto a tu carrito.</li>";
             }
             echo "</ul>";
-            echo "<a href='?volver=1'>Volver</a><br>";
-            echo "<a href='?confirmar=1'>Confirmar compra</a>";
+            echo "<a href='?volver=1.php'>Volver</a><br>";
+            echo "<a href='?confirmar=1.php'>Confirmar compra</a>";
         }
-
-        if (isset($_POST['confirmar'])) {
+        
+        if (isset($_GET['confirmar'])) {
+            
             // Limpiar la sesión del carrito después de confirmar la compra
-            unset($_SESSION['compras']); // Elimina solo el carrito
+            // Elimina solo el carrito
             //session_destroy(); // O puedes destruir toda la sesión si no necesitas más datos
             $mostrarFormulario = false;
             echo "<p>¡Gracias por tu compra! El carrito ha sido vaciado.</p>";
+            unset($_SESSION['compras']);
+            
         }
     }
     
