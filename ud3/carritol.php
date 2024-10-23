@@ -153,12 +153,24 @@
             // Limpiar la sesión del carrito después de confirmar la compra
             $mostrarFormulario = false;
             echo "<p>¡Gracias por tu compra! El carrito ha sido vaciado.</p>";
+            echo "<form action='' method='post'>";
+            echo "<input type='submit' name='enviarusuario' value='Volver a iniciar sesion'>";
+            echo "</form>";
             // limpia el carrito de compras
             unset($_SESSION['compras']);
+
         }
         if (isset($_POST['volver'])) {
             // Al hacer clic en "Volver a la tienda", simplemente regresamos a mostrar el formulario
             $mostrarFormulario = true;
+        }
+          
+        if (isset($_POST['enviarusuario'])) {
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $_SESSION['usuario'] = $_POST['nombre'];
+                header('Location: index.php');
+                exit();
+            }
         }
     }
     
