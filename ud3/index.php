@@ -2,7 +2,7 @@
 session_start();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION['usuario'] = $_POST['nombre'];
-    header('Location: productos.php');
+    header('Location: carritol.php');
     exit();
 }
 ?>

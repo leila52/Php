@@ -7,42 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito de la compra</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-            color: #333;
-        }
-
-        h1 {
-            color: #5a5a5a;
-        }
-
-        h2 {
-            color: #4a4a4a;
-        }
-
-        form {
-            background-color: #ffffff;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-
         label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
         }
-
         input[type="number"] {
             width: 50px;
             padding: 5px;
             margin-bottom: 10px;
         }
-
         input[type="submit"] {
             background-color: #007bff;
             color: white;
@@ -52,27 +26,16 @@
             cursor: pointer;
             margin-top: 10px;
         }
-
         input[type="submit"]:hover {
             background-color: #0056b3;
         }
-
         ul {
             list-style-type: none;
             padding: 0;
         }
-
         ul li {
             padding: 8px;
             border-bottom: 1px solid #ddd;
-        }
-
-        ul li strong {
-            color: #007bff;
-        }
-
-        .error {
-            color: red;
         }
     </style>
 </head>
