@@ -1,7 +1,7 @@
 <?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -90,20 +90,21 @@
 
     // proceso para la compra
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        if (isset($_POST['comprar'])) { // Si se presiona el botón "Comprar"
+        // si se presiona el botón "Comprar"
+        if (isset($_POST['comprar'])) { 
             //echo "<br>traza dentro de comprar";
             foreach ($precios as $producto => $precio) {
                 //echo "<br>traza producto $producto";
 
                 if (!empty($_POST["$producto"])) {
                     $cantidad = intval($_POST[$producto]);
-                    echo "<p>Has añadido $cantidad unidad(es) de $producto a tu carrito.</p>";
                     //echo "traza: $cantidad";
                     if ($cantidad > 0) {
                         // Comprobar stock
                         if ($cantidad > $stock[$producto]) {
                             echo "<p style='color:red;'>No hay suficiente stock de $producto. Solo quedan {$stock[$producto]} unidades.</p>";
                         } else {
+                            echo "<p>Has añadido $cantidad unidad(es) de $producto a tu carrito.</p>";
                             // Restar del stock
                             $stock[$producto]= $stock[$producto]-$cantidad;
                             if (!isset($_SESSION['compras'][$producto])) {
@@ -148,9 +149,9 @@
             echo "<input type='submit' name='volver' value='Volver a la tienda'>";
             echo "</form>";
         }
-        
+        //se confirma la comprar al ver el resumen
         if (isset($_POST['confirmar'])) {
-            // Limpiar la sesión del carrito después de confirmar la compra
+            // NOmostramos el formulario inicial
             $mostrarFormulario = false;
             echo "<p>¡Gracias por tu compra! El carrito ha sido vaciado.</p>";
             echo "<form action='' method='post'>";
@@ -161,21 +162,20 @@
 
         }
         if (isset($_POST['volver'])) {
-            // Al hacer clic en "Volver a la tienda", simplemente regresamos a mostrar el formulario
+            //simplemente regresamos a mostrar el formulario
             $mostrarFormulario = true;
         }
           
         if (isset($_POST['enviarusuario'])) {
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                $_SESSION['usuario'] = $_POST['nombre'];
-                header('Location: index.php');
+                header('Location: iniciarSesion.php');
                 exit();
             }
         }
     }
-    
-
-    // Mostrar el formulario si es necesario
+    ?>
+    <!--ostrar el formulario si es necesario-->
+    <?php
     if ($mostrarFormulario) {
         ?>
         <form action="" method="post">
