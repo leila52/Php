@@ -13,7 +13,7 @@
             font-weight: bold;
         }
         input[type="number"] {
-            width: 50px;
+            width: 51px;
             padding: 5px;
             margin-bottom: 10px;
         }
