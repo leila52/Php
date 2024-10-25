@@ -7,6 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito de la compra</title>
     <style>
+        p{
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
         label {
             display: block;
             margin-bottom: 5px;
@@ -44,6 +49,9 @@
     <h1>Carrito de la compra de Shephora:</h1>
     <?php
     $mostrarFormulario = true;
+    //explicar 
+    $usuario=$_SESSION['usuario'];
+    echo"<p>Bienvenido(a)   $usuario   a nuestra tienda :</p>";
         // precios de los productos disponibles
     $precios = [
         "base_charlotte_tilbury" => 49,
@@ -168,7 +176,7 @@
           
         if (isset($_POST['enviarusuario'])) {
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                header('Location: iniciarSesion.php');
+                header('Location: iniciarsesion.php');
                 exit();
             }
         }
