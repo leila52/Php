@@ -1,46 +1,37 @@
 <?php
 session_start();
 
-// Cargar usuarios y contraseñas desde un archivo
-define("RUTA_USUARIOS", "usuarios.data");
+// definimos la ruta del archivo de usuarios
+define("RUTA_USUARIOS","usuarios.data");
 
-// Verificar si el archivo de usuarios existe
-if (file_exists(RUTA_USUARIOS)) {
-    $usuarios = unserialize(file_get_contents(RUTA_USUARIOS));
-} else {
-    // Inicializar con un administrador por defecto si no existe el archivo
-    $usuarios = [
-        "administrador" => [
-            "hash" => password_hash("admin123", PASSWORD_DEFAULT),
-            "rol" => "admin"
-        ]
-    ];
-    file_put_contents(RUTA_USUARIOS, serialize($usuarios));
+//verificamos si el archivo exixte y cargar los usuarios o iniciamos el array vacio si esque no exixte
+
+if(file_exists(RUTA_USUARIOS)){
+    $usuarios=unserialize(file_get_contents(RUTA_USUARIOS));
+}else{
+    $usuarios=[];
+
 }
-
-// Procesar el formulario de autenticación
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $nombreUsuario = $_POST['nombre'];
-    $contrasena = $_POST['contrasena'];
-
-    // Verificar si el usuario existe
-    if (isset($usuarios[$nombreUsuario]) && password_verify($contrasena, $usuarios[$nombreUsuario]['hash'])) {
+//el formulario de iniciar sesion
+//usamos trim() funcion de php para eliminar espacios
+if($_SERVER['REQUEST_METHOD']==='POST'){
+    $nombreUsuario = trim($_POST['nombre']);
+    $password = trim($_POST['password']);
+    //vemos si el usuario exixte y si la contraseña es correcta
+    if(isset($usuarios[$nombreUsuario]) && password_verify($password, $usuarios[$nombreUsuario]['password'])){
         $_SESSION['usuario'] = $nombreUsuario;
-        $_SESSION['rol'] = $usuarios[$nombreUsuario]['rol'];
+        $_SESSION['admin'] = $usuarios[$nombreUsuario]['admin'];
 
-        // Redirigir según el rol del usuario
-        if ($usuarios[$nombreUsuario]['rol'] === "admin") {
+        //si es admin le llevamos a administrar
+        if ($_SESSION['admin']) {
             header('Location: administrar.php');
         } else {
-            header('Location: carrito.php');
+            header('Location: carritol.php');
         }
-        exit();
-    } else {
-        echo "<p style='color:red;'>Usuario o contraseña incorrectos.</p>";
     }
 }
-?>
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,10 +79,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <h1>Bienvenido a Sephora</h1>
     <form method="post">
-        <label for="nombre">Nombre de usuario:</label>
+        <label for="nombre">Ingrese su nombre:</label>
         <input type="text" id="nombre" name="nombre" required>
-        <label for="contrasena">Contraseña:</label>
-        <input type="password" id="contrasena" name="contrasena" required>
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required>
         <input type="submit" value="Entrar">
     </form>
 </body>

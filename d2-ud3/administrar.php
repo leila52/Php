@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-// Verificar si el usuario ha iniciado sesión y es administrador
-if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== "admin") {
-    header("Location: iniciarsesion.php");
-    exit();
+//verificamos si el usuario a iniciado sesion y si es administrador
+if(!isset($_SESSION['usuario'])||!$_SESSION['es_admin']){
+    header('Location:iniciarsesion.php');
 }
+
 // Define la ruta del archivo de stock
 define("RUTA_FICHERO", "stock.data");
 

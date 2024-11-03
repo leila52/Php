@@ -1,5 +1,4 @@
 <?php session_start(); ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,6 +47,12 @@
 <body>
     <h1>Carrito de la compra de Shephora:</h1>
     <?php
+
+    //verificar si ha iniciado sesion
+    if (!isset($_SESSION['usuario'])) {
+        header('Location: iniciarsesion.php');
+    }
+    
     $mostrarFormulario = true;
     //explicar 
     $usuario=$_SESSION['usuario'];
