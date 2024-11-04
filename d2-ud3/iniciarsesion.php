@@ -58,9 +58,20 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
         }
         label {
             display: block;
-            margin-bottom: 5px;
-            font-size:30px;
+            margin-bottom: 10px;
+            font-size: 1.2em;
             font-weight: bold;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box;
         }
         input[type="submit"] {
             background-color: #007bff;
@@ -83,9 +94,10 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
         <input type="text" id="nombre" name="nombre" required>
         <label for="password">Contraseña:</label>
         <input type="password" id="password" name="password" required>
-        <p>Todavía no tienes cuenta acede aqui para crear una nueva</p>
-        <a href="registrar.php">Crear nueva cuenta</a>
         <input type="submit" value="Entrar">
+        <p>¿Todavía no tienes cuenta? </p>
+        <a href="registrar.php">Crear nueva cuenta</a>
+        
     </form>
 </body>
 </html>

@@ -11,6 +11,11 @@ if (file_exists(RUTA_USUARIOS)) {
 } else {
     $usuarios = [];
 }
+
+//variables iniciales
+$errores = [];
+$registro_exitoso = false;
+
 // Procesar el formulario de registro
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = trim($_POST['nombre']);
@@ -21,35 +26,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = trim($_POST['password']);
 
     // Validaciones
-    $errores = [];
     if (empty($nombre) || empty($apellido) || empty($ciudad) || empty($edad) || empty($nombreUsuario) || empty($password)) {
         $errores[] = "Todos los campos son obligatorios.";
     }
     if ($edad < 18) {
         $errores[] = "Debes ser mayor de 18 años para registrarte.";
     }
+    //comprobar si exixte ya el nombre 
+    if (isset($usuarios[$nombreUsuario])) {
+        $errores[] = "El nombre de usuario ya está en uso.";
+    }
 
     // Si no hay errores, agregar el usuario
     if (empty($errores)) {
-        //si el nombre ya exixte
-        if (isset($usuarios[$nombreUsuario])) {
-            $errores[] = "El nombre de usuario ya está en uso.";
-        }else{
-            //hacemos el hash de la contraseña
-            $hashPassword = password_hash($password, PASSWORD_DEFAULT);
 
-            //agregamos el usuario al array
-            $usuarios[$nombreUsuario] = [
-                'password' => $hashPassword,
-                'admin' => false // Establecer si es administrador o no
-            ];
-            //guardamos el nuevo array
-            file_put_contents(RUTA_USUARIOS, serialize($usuarios));
-            echo "<p>Registro exitoso. Puedes iniciar sesión ahora.</p>";
-            header('Location: iniciarsesion.php');
-        }
+        //hacemos el hash de la contraseña
+        $hashPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        //agregamos el usuario al array
+        $usuarios[$nombreUsuario] = [
+            'password' => $hashPassword,
+            'admin' => false // Establecer si es administrador o no
+        ];
+
+        //guardamos el nuevo array
+        file_put_contents(RUTA_USUARIOS, serialize($usuarios));
+
+        // Establecer el registro como exitoso
+        $registro_exitoso = true;
+        
     }
-}
+    }
+
 
 ?>
 
@@ -60,73 +68,80 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Registro de Usuario</title>
     <style>
     body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 20px;
-    }
+            font-family: Arial, sans-serif;
+            background-image: url('fondo.jpg');
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            font-size:50px;
+            text-align: center; 
+            margin-bottom: 20px; 
+            color: black;
+            background: white;
+        }
 
-    h1 {
-        text-align: center;
-        color: #333;
-    }
+        form {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
-    form {
-        max-width: 400px;
-        margin: 0 auto;
-        padding: 20px;
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
+        label, input[type="submit"] {
+            display: block;
+            margin: 10px 0;
+            width: 100%;
+        }
 
-    label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
+        input[type="text"],
+        input[type="number"],
+        input[type="password"] {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
 
-    input[type="text"],
-    input[type="number"],
-    input[type="password"] {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        box-sizing: border-box;
-    }
+        input[type="submit"] {
+            background-color: blue;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        .mensaje, .errores {
+            padding: 10px;
+            border-radius: 5px;
+        }
+ 
+        a {
+            display: block;
+            margin-top: 10px;
+            color: blue;
+            text-decoration: none;
+        }
 
-    input[type="submit"] {
-        background-color: blue;
-        color: white;
-        padding: 10px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-        width: 100%;
-    }
-
-    input[type="submit"]:hover {
-        background-color: ligth blue;
-    }
-
-    a {
-        display: block;
-        text-align: center;
-        margin-top: 15px;
-        color: #007bff;
-        text-decoration: none;
-    }
-
-    a:hover {
-        text-decoration: underline;
-    }
+        a:hover {
+            text-decoration: underline;
+        }
 </style>
 </head>
 <body>
-    <h1>Registrar de Usuario</h1>
+    <h1>Registro de Usuario</h1>
+    <?php if ($registro_exitoso== true){?>
+        <div class="mensaje">
+            <p>Registro exitoso </p>
+            <a href="iniciarsesion.php">iniciar sesión</a>
+        </div>
+    <?php }if (!empty($errores)){?>
+        <div class="errores">
+        <?php foreach ($errores as $error): ?>
+            <p><?php echo htmlspecialchars($error); ?></p>
+        <?php endforeach; ?>
+        </div>
+    <?php }?>
     <form method="post">
     <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required>
