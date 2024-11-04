@@ -83,6 +83,8 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
         <input type="text" id="nombre" name="nombre" required>
         <label for="password">Contraseña:</label>
         <input type="password" id="password" name="password" required>
+        <p>Todavía no tienes cuenta acede aqui para crear una nueva</p>
+        <a href="registrar.php">Crear nueva cuenta</a>
         <input type="submit" value="Entrar">
     </form>
 </body>
