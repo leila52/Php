@@ -2,7 +2,7 @@
 session_start();
 
 //verificamos si el usuario a iniciado sesion y si es administrador
-if(!isset($_SESSION['usuario'])||!$_SESSION['es_admin']){
+if(!isset($_SESSION['usuario'])){
     header('Location:iniciarsesion.php');
 }
 
