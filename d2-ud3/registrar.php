@@ -45,8 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         //agregamos el usuario al array
         $usuarios[$nombreUsuario] = [
-            'password' => $hashPassword,
-            'admin' => false // Establecer si es administrador o no
+            'password' => $hashPassword
         ];
 
         //guardamos el nuevo array
@@ -138,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php }if (!empty($errores)){?>
         <div class="errores">
         <?php foreach ($errores as $error): ?>
-            <p><?php echo htmlspecialchars($error); ?></p>
+            <p><?php echo $error; ?></p>
         <?php endforeach; ?>
         </div>
     <?php }?>
@@ -162,7 +161,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="password" id="password" name="password" required>
 
         <input type="submit" value="Registrar">
+        <a href="iniciarsesion.php">Ya tengo cuenta</a>
     </form>
-    <a href="iniciarsesion.php">Ya tengo cuenta</a>
+   
 </body>
 </html>

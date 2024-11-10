@@ -12,6 +12,17 @@ if(file_exists(RUTA_USUARIOS)){
     $usuarios=[];
 
 }
+//cremaos el usurio
+$nombreAdmin = "admin";
+if (!isset($usuarios[$nombreAdmin])) {
+    $passwordAdmin = password_hash("admin123", PASSWORD_DEFAULT); 
+    $usuarios[$nombreAdmin] = [
+        'password' => $passwordAdmin,
+        'admin' => true
+    ];
+    file_put_contents(RUTA_USUARIOS, serialize($usuarios));
+}
+
 //el formulario de iniciar sesion
 //usamos trim() funcion de php para eliminar espacios
 if($_SERVER['REQUEST_METHOD']==='POST'){
@@ -20,14 +31,15 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     //vemos si el usuario exixte y si la contraseña es correcta
     if(isset($usuarios[$nombreUsuario]) && password_verify($password, $usuarios[$nombreUsuario]['password'])){
         $_SESSION['usuario'] = $nombreUsuario;
-        $_SESSION['admin'] = $usuarios[$nombreUsuario]['admin'];
 
         //si es admin le llevamos a administrar
-        if ($_SESSION['admin']) {
+        if (($_SESSION['usuario']=="admin")) {
             header('Location: administrar.php');
         } else {
             header('Location: carritol.php');
         }
+    }else{
+        echo "<p style='color:white;'>No exixte este usuario.</p>";
     }
 }
 
