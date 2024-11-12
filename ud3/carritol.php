@@ -50,8 +50,8 @@
     <?php
     $mostrarFormulario = true;
     //explicar 
-    $usuario=$_SESSION['usuario'];
-    echo"<p>Bienvenido(a)   $usuario   a nuestra tienda :</p>";
+    //$usuario=$_SESSION['usuario'];
+    //echo"<p>Bienvenido(a)   $usuario   a nuestra tienda :</p>";
         // precios de los productos disponibles
     $precios = [
         "base_charlotte_tilbury" => 49,
@@ -97,15 +97,15 @@
     //echo "traza: " . var_dump($_POST);
 
     // proceso para la compra
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if ($_SERVER["REQUEST_METHOD"] === "GET") {
         // si se presiona el botón "Comprar"
-        if (isset($_POST['comprar'])) { 
+        if (isset($_GET['comprar'])) { 
             //echo "<br>traza dentro de comprar";
             foreach ($precios as $producto => $precio) {
                 //echo "<br>traza producto $producto";
 
-                if (!empty($_POST["$producto"])) {
-                    $cantidad = intval($_POST[$producto]);
+                if (!empty($_GET["$producto"])) {
+                    $cantidad = intval($_GET[$producto]);
                     //echo "traza: $cantidad";
                     if ($cantidad > 0) {
                         // Comprobar stock
@@ -130,7 +130,7 @@
             
         }
 
-        if (isset($_POST['finalizar'])) { // Si se presiona el botón "Finalizar"
+        if (isset($_GET['finalizar'])) { // Si se presiona el botón "Finalizar"
             $mostrarFormulario = false;
             echo "<h2>Resumen de tu compra:</h2>";
             echo "<ul>";
@@ -151,31 +151,31 @@
                 echo "<li>No has añadido ningún producto a tu carrito.</li>";
             }
             echo "</ul>";
-            echo "<form action='' method='post'>";
+            echo "<form action='' method='get'>";
             // muestra opciones para confirmar la compra o volver a la tienda
             echo "<input type='submit' name='confirmar' value='Confirmar compra'>";
             echo "<input type='submit' name='volver' value='Volver a la tienda'>";
             echo "</form>";
         }
         //se confirma la comprar al ver el resumen
-        if (isset($_POST['confirmar'])) {
+        if (isset($_GET['confirmar'])) {
             // NOmostramos el formulario inicial
             $mostrarFormulario = false;
             echo "<p>¡Gracias por tu compra! El carrito ha sido vaciado.</p>";
-            echo "<form action='' method='post'>";
+            echo "<form action='' method='get'>";
             echo "<input type='submit' name='enviarusuario' value='Volver a iniciar sesion'>";
             echo "</form>";
             // limpia el carrito de compras
             unset($_SESSION['compras']);
 
         }
-        if (isset($_POST['volver'])) {
+        if (isset($_GET['volver'])) {
             //simplemente regresamos a mostrar el formulario
             $mostrarFormulario = true;
         }
           
-        if (isset($_POST['enviarusuario'])) {
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if (isset($_GET['enviarusuario'])) {
+            if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 header('Location: iniciarsesion.php');
                 exit();
             }
@@ -186,7 +186,7 @@
     <?php
     if ($mostrarFormulario) {
         ?>
-        <form action="" method="post">
+        <form action="" method="get">
             <?php
             foreach ($precios as $producto => $precio) {
                 echo "<label for=\"$producto\">$producto:</label><br>";

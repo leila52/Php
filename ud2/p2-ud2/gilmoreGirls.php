@@ -218,7 +218,8 @@
         <input type="checkbox" id="deen" name="personajes[]" value="Deen" <?php echo (in_array("Deen", $personajes)) ? "checked" : ""; ?>> Deen
         <input type="checkbox" id="jess" name="personajes[]" value="Jess" <?php echo (in_array("Jess", $personajes)) ? "checked" : ""; ?>> Jess
         <?php if (isset($errores['personajes'])) { ?>
-            <div style="color: red;"><?php echo $errores['personajes']; ?></div>
+            <br>
+            <font size="2" color="red"> <?php echo $errores['personajes']; ?> </font>
         <?php } ?>
 
         <br><br>

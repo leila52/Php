@@ -12,7 +12,7 @@
     $mostrarFormulario=true;
     if(isset($_POST['buscar'])){
         if(!empty($_POST['cancion']) && !empty($_POST['buscarC']) && !empty($_POST['canciones'])){
-            $cancion;=$_POST['cancion'];
+            $cancion=$_POST['cancion'];
             $busqueda=$_POST['buscarC'];
             $canciones=$_POST['canciones'];
             if(isset($cancion)){
