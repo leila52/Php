@@ -1,53 +1,45 @@
-
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego de Adivinar el Número</title>
+    <title>Document</title>
 </head>
 <body>
+<h1>Adivinaaaaaaaa</h1>
 <?php
-// definimos el top
     define('TOPE',50);
-
-    //si no este el campo lleno
-    if(!isset($_POST["miNum"])){
-        $miNum=rand(1,TOPE);
+    if(!isset($_POST['usuario'])){
+        //generar numero
+        $numaAle=rand(1,TOPE);
         $intentos=0;
-        $mensaje=" adivina el numero entre 1 y " . TOPE.".";
+        $mensaje="adivina el numero entre 1 y 50";
 
     }else{
-        $miNum=intval($_POST['miNum']);
-
-        $intentos=intval($_POST['intentos']) + 1;
-        //numero del usuario
-        $adivinado=intval($_POST['numero']);
-        if($adivinado > $miNum){
-            $mensaje="el numero es menor llevas $intentos intentos";
-        }else if($adivinado < $miNum){
-            $mensaje="el numero es mayor llevas $intentos intentos";
+        $numaAle = intval($_POST['numaAle']);
+        $intentos=intval($_POST['intentos'])+1;
+        $numero=intval($_POST['usuario']);
+        if($numero < $numaAle){
+            $mensaje="el numero que hay que adivinar es mayor";
+        }
+        else if($numero > $numaAle){
+            $mensaje="el numero que hay que encontrar es menor";
+        
         }else{
-            $mensaje="has acertado oleeeeeeee";
-            //reiniciamos el juego
-            $miNum=rand(1,TOPE);
+            $mensaje="has hacertado oleeee";
+            $numaAle= rand(1, TOPE);
             $intentos=0;
         }
     }
 ?>
-    <h1>Juego de Adivinar el Número</h1>
     <p><?php echo $mensaje; ?></p>
-
-    <!-- Formulario para enviar la adivinanza -->
     <form action="" method="post">
-        <label for="numer">Introduce el número:</label>
-        <input type="number" id="numero" name="numero" required><br>
+       <label for="numero">Introduce el número:</label>
+        <input type="usuario" id="usuario" name="usuario" ><br>
         <br>
-        <!-- Campo oculto para mantener el número aleatorio generado -->
-        <input type="hidden" name="miNum" value="<?php echo $miNum; ?>">
-        <!-- Campo oculto para llevar el conteo de intentos -->
+        <input type="hidden" name="numaAle" value="<?php echo $numaAle; ?>">
         <input type="hidden" name="intentos" value="<?php echo $intentos; ?>">
-        <button type="submit">Comprobar</button>
+        <button type="submit">enviar</button>
     </form>
 </body>
-</html>
+</html> 
