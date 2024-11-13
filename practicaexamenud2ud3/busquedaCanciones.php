@@ -44,7 +44,6 @@
             <input type="radio" id="nombre" name="buscarC" value="nombre" required> Nombres de álbum
             <input type="radio" id="ambos" name="buscarC" value="ambos" required> Ambos campos
             <br><br>
-
             <label for="genero">Género musical:</label>
             <select id="canciones" name="canciones" required>
                 <option value="">Todos</option>
