@@ -19,11 +19,11 @@ $equipos = explode(":",$partidos[$partido]);
 ?>
 
 <form method="POST">
-<inpput type="hidden" name="partido" value="<?=$partido?>">
-<?= $equipos[0] ?>:<input type=number name="local" />
-<?= $equipos[1] ?>:<input type=number name="visitante" />
-Minuto:<input type="number" name="minuto" />
-<input type="submit" value="Actualizar">
+<input type="hidden" name="partido" value="<?=$partido?>">
+<?= $equipos[0] ?>:<input type=number name="local"  value ="<?=$local?>" />
+<?= $equipos[1] ?>:<input type=number name="visitante" value ="<?=$visitante?>"/>
+Minuto:<input type="number" name="minuto" value ="<?=$minuto?>"/>
+<input type="submit" name ="actuqalizar" value="Actualizar">
 <p><a href="Marcadores.php">Volver al listado (actualizar antes)</a></p>
 </form>
 </body>
