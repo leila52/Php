@@ -17,20 +17,42 @@ $mostrarformulario=true;
     "user8" => '$2y$10$FFkEH4zNMAC5R8UPFahqMeYdVqQtSfMMW0oLD6e4zOTWyTtZWmSJG',
     "user9" => '$2y$10$ClccGXvtRiKGkwgh4fhNKOLqnYDs/ta2bqbeiA4o7RVrZ0Koiz1kG',
     "user10" => '$2y$10$dX8LQLCIcJc5IwHqdP1aVOiINd0SF1IfPu8xzf4tnCyxuIonXRbf.'
-    );
+    
+);
+
+
+
+    $nombreAdmin = "user11";
+    if (!isset($passwd[$nombreAdmin])) { // Asegúrate de que no exista user11
+        $passwordAdmin = password_hash("mandarina", PASSWORD_DEFAULT); 
+        $passwd[$nombreAdmin] = $passwordAdmin; // Agregar correctamente user11
+    }
+
+    
+    if(isset($_SESSION['usuario'])){
+        echo" Bienvenido ".$_SESSION['usuario'];
+        $mostrarformulario=false;
+        //aqui se muestra el nombre del usuario 
+        echo"<form method=\"post\">";
+        echo" <input type=\"submit\" name=\"cerrar\" value=\"cerrar sesión\" />";
+        echo"</form >";
+        if( isset($_POST['cerrar'])){
+            session_destroy();
+        }
+        
+    }
 
         if(isset(($_POST['confirmar']))){
             $usuario= $_POST['usuario'];
             $password= $_POST['contrasena'];
-            echo'hola';
-            if($passwd[$usuario] && password_verify($password,$passwd[$usuario])){
+            if(isset($passwd[$usuario]) && password_verify($password,$passwd[$usuario])){
                 $_SESSION['usuario']=$usuario;
+                echo" Bienvenido ".$_SESSION['usuario'];
                 $mostrarformulario=false;
                 //aqui se muestra el nombre del usuario 
-                echo" Bienvenido $usuario";
                 echo"<form method=\"post\">";
                 echo" <input type=\"submit\" name=\"cerrar\" value=\"cerrar sesión\" />";
-                echo"<form >";
+                echo"</form >";
                 if( isset($_POST['cerrar'])){
                     session_destroy();
                 }
@@ -40,7 +62,7 @@ $mostrarformulario=true;
                 $mostrarformulario=false;
                 echo"<form method=\"post\">";
                 echo" <input type=\"submit\" name=\"intentar\" value=\"iniciar sesion\" />";
-                echo"<form >";
+                echo"</form >";
                 if( isset($_POST['intentar'])){
                     header('Location: passwd.php');
                 }
