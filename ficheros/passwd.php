@@ -23,7 +23,7 @@ $mostrarformulario=true;
         $passwd[$nombreAdmin] = $passwordAdmin; // Agregar correctamente user11
     }
 
-    
+    //si ya inicio session
     if(isset($_SESSION['usuario'])){
         echo" Bienvenido ".$_SESSION['usuario'];
         $mostrarformulario=false;

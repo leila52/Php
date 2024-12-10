@@ -2,7 +2,8 @@
 <!-- Mostrar SOLO si el inicio de sesión es válido cambiando nombre por su usuario: -->
 <?php
 $mostrarformulario=true;
-    $passwd = array(
+   
+     $passwd = array(
     "user1" => '$2y$10$3SgeyVJD/mw0rvRtjkwWk.8XM1.GpDr8NWc95bN.tpSK2sEriXtX2',
     "user2" => '$2y$10$OymrA3YaPJ4Pfnh.H3GOneuD2y5OklZVW28OxrniOdkDyLWPN/80u',
     "user3" => '$2y$10$qmNdtRRxXXfVRQy8Sjb7bey1RZqj.I2sz3NvUO2kuz2hjZHud2rrC',
@@ -14,7 +15,6 @@ $mostrarformulario=true;
     "user9" => '$2y$10$ClccGXvtRiKGkwgh4fhNKOLqnYDs/ta2bqbeiA4o7RVrZ0Koiz1kG',
     "user10" => '$2y$10$dX8LQLCIcJc5IwHqdP1aVOiINd0SF1IfPu8xzf4tnCyxuIonXRbf.'
 
-    
 );
 
     $nombreadmin="user11";
