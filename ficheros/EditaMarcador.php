@@ -1,7 +1,6 @@
 <?php session_start() ?>
 <html>
 
-<<<<<<< HEAD
 <head>
     <meta charset="utf-8">
     <title>Editor de marcador</title>
@@ -37,15 +36,6 @@
     }
     ?>
 
-    <form method="POST">
-        <input type="hidden" name="partido" value="<?= $partido ?>">
-        <?= $equipos[0] ?>:<input type=number name="local" value=<?= $valoresPartidos["partido$partido"][0] ?> />
-        <?= $equipos[1] ?>:<input type=number name="visitante" value=<?= $valoresPartidos["partido$partido"][1] ?> />
-        Minuto:<input type="number" name="minuto" value=<?= $valoresPartidos["partido$partido"][2] ?> />
-        <input type="submit" name="actualizar" value="Actualizar">
-        <p><a href="Marcadores.php">Volver al listado (actualizar antes)</a></p>
-    </form>
-=======
 <form method="POST">
 <input type="hidden" name="partido" value="<?=$partido?>">
 <?= $equipos[0] ?>:<input type=number name="local"  value ="<?=$local?>" />
@@ -54,7 +44,6 @@ Minuto:<input type="number" name="minuto" value ="<?=$minuto?>"/>
 <input type="submit" name ="actuqalizar" value="Actualizar">
 <p><a href="Marcadores.php">Volver al listado (actualizar antes)</a></p>
 </form>
->>>>>>> 9f68a0a6629cc449a5f7b95697460a2250e6402a
 </body>
 
 </html>
