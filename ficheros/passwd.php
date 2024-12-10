@@ -13,45 +13,9 @@ $mostrarformulario=true;
     "user8" => '$2y$10$FFkEH4zNMAC5R8UPFahqMeYdVqQtSfMMW0oLD6e4zOTWyTtZWmSJG',
     "user9" => '$2y$10$ClccGXvtRiKGkwgh4fhNKOLqnYDs/ta2bqbeiA4o7RVrZ0Koiz1kG',
     "user10" => '$2y$10$dX8LQLCIcJc5IwHqdP1aVOiINd0SF1IfPu8xzf4tnCyxuIonXRbf.'
-<<<<<<< HEAD
-    );
-    
-    // Crear un usuario dinámicamente
-if (!isset($passwd['user11'])) {
-    $passwd['user11'] = password_hash("mandarina", PASSWORD_BCRYPT);
-}
-// Comprobar si se ha solicitado cerrar sesión
-if (isset($_POST['cerrar'])) {
-    session_destroy();
-    header("Location: passwd.php");
-    exit();
-}
-if (isset($_SESSION['usuario'])) {
-    $mostrarformulario=false;
-    echo "<p>Bienvenido " . htmlspecialchars($_SESSION['usuario']) . "!</p>";
-    echo "<form method='post'>";
-    echo "<input type='submit' name='cerrar' value='Cerrar sesión' />";
-    echo "</form>";
-} else {
-    if(isset(($_POST['confirmar']))){
-        $usuario= $_POST['usuario'];
-        $password= $_POST['contrasena'];
-        echo'hola';
-        if($passwd[$usuario] && password_verify($password,$passwd[$usuario])){
-            $_SESSION['usuario']=$usuario;
-            $mostrarformulario=false;
-            //aqui se muestra el nombre del usuario 
-            echo" Bienvenido $usuario";
-            echo"<form method=\"post\">";
-            echo" <input type=\"submit\" name=\"cerrar\" value=\"cerrar sesión\" />";
-            echo"<form >";
-            if( isset($_POST['cerrar'])){
-                session_destroy();
-=======
+
     
 );
-
-
 
     $nombreAdmin = "user11";
     if (!isset($passwd[$nombreAdmin])) { // Asegúrate de que no exista user11
@@ -68,6 +32,7 @@ if (isset($_SESSION['usuario'])) {
         echo" <input type=\"submit\" name=\"cerrar\" value=\"cerrar sesión\" />";
         echo"</form >";
         if( isset($_POST['cerrar'])){
+            session_unset();
             session_destroy();
         }
         
@@ -85,6 +50,7 @@ if (isset($_SESSION['usuario'])) {
                 echo" <input type=\"submit\" name=\"cerrar\" value=\"cerrar sesión\" />";
                 echo"</form >";
                 if( isset($_POST['cerrar'])){
+                    session_unset();
                     session_destroy();
                 }
         
@@ -97,11 +63,10 @@ if (isset($_SESSION['usuario'])) {
                 if( isset($_POST['intentar'])){
                     header('Location: passwd.php');
                 }
->>>>>>> 9f68a0a6629cc449a5f7b95697460a2250e6402a
             }
         }
-    }
-}
+    
+
 ?>
 <!-- Mostrar solo si no se ha autenticado ya -->
 <?php if($mostrarformulario==true){?>
