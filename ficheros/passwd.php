@@ -1,9 +1,5 @@
 <?php session_start()?>
-
-
-
 <!-- Mostrar SOLO si el inicio de sesión es válido cambiando nombre por su usuario: -->
-
 <?php
 $mostrarformulario=true;
     $passwd = array(
@@ -18,36 +14,42 @@ $mostrarformulario=true;
     "user9" => '$2y$10$ClccGXvtRiKGkwgh4fhNKOLqnYDs/ta2bqbeiA4o7RVrZ0Koiz1kG',
     "user10" => '$2y$10$dX8LQLCIcJc5IwHqdP1aVOiINd0SF1IfPu8xzf4tnCyxuIonXRbf.'
     );
-
-        if(isset(($_POST['confirmar']))){
-            $usuario= $_POST['usuario'];
-            $password= $_POST['contrasena'];
-            echo'hola';
-            if($passwd[$usuario] && password_verify($password,$passwd[$usuario])){
-                $_SESSION['usuario']=$usuario;
-                $mostrarformulario=false;
-                //aqui se muestra el nombre del usuario 
-                echo" Bienvenido $usuario";
-                echo"<form method=\"post\">";
-                echo" <input type=\"submit\" name=\"cerrar\" value=\"cerrar sesión\" />";
-                echo"<form >";
-                if( isset($_POST['cerrar'])){
-                    session_destroy();
-                }
-        
-            }else{
-                echo "Usuario y/o contraseñas incorrectos";  
-                $mostrarformulario=false;
-                echo"<form method=\"post\">";
-                echo" <input type=\"submit\" name=\"intentar\" value=\"iniciar sesion\" />";
-                echo"<form >";
-                if( isset($_POST['intentar'])){
-                    header('Location: passwd.php');
-                }
+    
+    // Crear un usuario dinámicamente
+if (!isset($passwd['user11'])) {
+    $passwd['user11'] = password_hash("mandarina", PASSWORD_BCRYPT);
+}
+// Comprobar si se ha solicitado cerrar sesión
+if (isset($_POST['cerrar'])) {
+    session_destroy();
+    header("Location: passwd.php");
+    exit();
+}
+if (isset($_SESSION['usuario'])) {
+    $mostrarformulario=false;
+    echo "<p>Bienvenido " . htmlspecialchars($_SESSION['usuario']) . "!</p>";
+    echo "<form method='post'>";
+    echo "<input type='submit' name='cerrar' value='Cerrar sesión' />";
+    echo "</form>";
+} else {
+    if(isset(($_POST['confirmar']))){
+        $usuario= $_POST['usuario'];
+        $password= $_POST['contrasena'];
+        echo'hola';
+        if($passwd[$usuario] && password_verify($password,$passwd[$usuario])){
+            $_SESSION['usuario']=$usuario;
+            $mostrarformulario=false;
+            //aqui se muestra el nombre del usuario 
+            echo" Bienvenido $usuario";
+            echo"<form method=\"post\">";
+            echo" <input type=\"submit\" name=\"cerrar\" value=\"cerrar sesión\" />";
+            echo"<form >";
+            if( isset($_POST['cerrar'])){
+                session_destroy();
             }
         }
-    
-
+    }
+}
 ?>
 <!-- Mostrar solo si no se ha autenticado ya -->
 <?php if($mostrarformulario==true){?>
